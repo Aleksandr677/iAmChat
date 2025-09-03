@@ -8,7 +8,7 @@
 import Foundation
 
 struct Constants {
-    static let randomImageURL = "https://picsum.photos/600/600"
+    static let randomImageURL = "https://random-image-pepebigotes.vercel.app/api/random-image"
     static let privacyPolicyURL = "https://www.apple.com"
     static let termsOfServiceURL = "https://www.apple.com"
 }
