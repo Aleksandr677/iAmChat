@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AvatarModel {
+struct AvatarModel: Hashable {
     let avatarId: String
     let name: String?
     let characterOption: CharacterOption?
@@ -105,7 +105,6 @@ struct AvatarDescriptionBuilder {
         self.characterAction = characterAction
         self.characterLocation = characterLocation
     }
-    
     
     init(avatarModel: AvatarModel) {
         self.init(characterOption: avatarModel.characterOption ?? .default,
