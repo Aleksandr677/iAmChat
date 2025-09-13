@@ -32,7 +32,7 @@ struct UserModel: Identifiable {
     
     static var mocks: [Self] {
         return [
-            UserModel(id: UUID().uuidString,
+            UserModel(id: "user1",
                       dateCreated: .now.addingTimeInterval(days: -4),
                       didCompleteOnboarding: false,
                       profileColorHex: "#7DFF33"),
