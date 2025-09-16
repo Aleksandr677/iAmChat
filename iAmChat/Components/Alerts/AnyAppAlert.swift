@@ -16,7 +16,7 @@ struct AnyAppAlert: Sendable {
     init(
         title: String,
         subtitle: String? = nil,
-        buttons: ( @Sendable () -> AnyView)? = nil
+        buttons: (@Sendable () -> AnyView)? = nil
     ) {
         self.title = title
         self.subtitle = subtitle

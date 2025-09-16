@@ -13,12 +13,17 @@ struct ChatBubbleView: View {
     var backgroundColor: Color = Color(uiColor: .systemGray6)
     var text: String = "This is sample text"
     var imageName: String?
+    var onImagePressed: (() -> Void)?
+    
     var body: some View {
         HStack(alignment: .top, spacing: 8) {
             if showImage {
                 ZStack {
                     if let imageName {
                         ImageLoaderView(urlString: imageName)
+                            .anyButton {
+                                onImagePressed?()
+                            }
                     } else {
                         Rectangle()
                             .fill(.secondary)

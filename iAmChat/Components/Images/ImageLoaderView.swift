@@ -11,6 +11,7 @@ import SwiftUI
 struct ImageLoaderView: View {
     var urlString: String = Constants.randomImageURL
     var resizingMode: ContentMode = .fill
+    var forceTransitionAnimation: Bool = false
     
     var body: some View {
         Rectangle()
@@ -23,6 +24,10 @@ struct ImageLoaderView: View {
                     .allowsTightening(false)
             }
             .clipped()
+            .ifSatisfiedCondition(forceTransitionAnimation) { content in
+                content
+                    .drawingGroup()
+            }
     }
 }
 
