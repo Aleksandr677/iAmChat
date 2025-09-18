@@ -48,7 +48,7 @@ struct ExploreView: View {
                 ScrollView(.horizontal) {
                     HStack(spacing: 12) {
                         ForEach(categories, id: \.self) { category in
-                            CategoryCellView(title: category.rawValue.capitalized,
+                            CategoryCellView(title: category.plural.capitalized,
                                              imageName: Constants.randomImageURL)
                             .anyButton(option: .plain, action: {})
                             .frame(width: 150)
