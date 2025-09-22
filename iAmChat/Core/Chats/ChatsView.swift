@@ -11,8 +11,10 @@ struct ChatsView: View {
     
     @State private var chats: [ChatModel] = ChatModel.mocks
     
+    @State private var path: [NavigationPathOption] = []
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List(
                 content: {
                     ForEach(chats) { chat in
@@ -20,22 +22,28 @@ struct ChatsView: View {
                             chat: chat,
                             getAvatar: {
                                 try? await Task.sleep(for: .seconds(1))
-                                return .mock
+                                return AvatarModel.mocks.randomElement()!
                             },
                             getlastChatMessage: {
                                 try? await Task.sleep(for: .seconds(1))
-                                return .mock
+                                return ChatMessageModel.mocks.randomElement()!
                             },
                             currentUserId: nil // FIX ME
                         )
-                        .anyButton(option: .highlight, action: {
-                            
+                        .anyButton(option: .highlight,
+                                   action: {
+                            onChatPressed(chatModel: chat)
                         })
                         .removeListRowFormatting()
                 }
             })
             .navigationTitle("Chats")
+            .navigationDestinationForCoreModule(path: $path)
         }
+    }
+    
+    private func onChatPressed(chatModel: ChatModel) {
+        path.append(.chat(avatarId: chatModel.avatarId))
     }
 }
 

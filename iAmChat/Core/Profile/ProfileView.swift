@@ -15,8 +15,10 @@ struct ProfileView: View {
     @State private var myAvatars: [AvatarModel] = []
     @State private var isLoading: Bool = true
     
+    @State private var path: [NavigationPathOption] = []
+    
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             List(content: {
                 myInfo
                 myAvatarsSection
@@ -27,6 +29,7 @@ struct ProfileView: View {
                     settingsButton
                 }
             }
+            .navigationDestinationForCoreModule(path: $path)
         }
         .sheet(isPresented: $showSettingsView) {
             SettingsView()
@@ -67,6 +70,10 @@ struct ProfileView: View {
         myAvatars.remove(at: index)
     }
     
+    private func onAvatarPressed(avatar: AvatarModel) {
+        path.append(.chat(avatarId: avatar.avatarId))
+    }
+    
     private var myInfo: some View {
         Section {
             ZStack {
@@ -99,8 +106,9 @@ struct ProfileView: View {
                     CustomListCell(imageName: avatar.profileImageName,
                                    title: avatar.name,
                                    subtitle: nil)
-                    .anyButton(option: .highlight, action: {
-                        
+                    .anyButton(option: .highlight,
+                               action: {
+                        onAvatarPressed(avatar: avatar)
                     })
                     .removeListRowFormatting()
                 }
