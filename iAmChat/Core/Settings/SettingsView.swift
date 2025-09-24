@@ -10,6 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.authService) private var authService
     @Environment(AppState.self) private var appState
     @State private var isPremium: Bool = true
     @State private var isAnonymousUser: Bool = true
@@ -27,7 +28,14 @@ struct SettingsView: View {
                 CreateAccountView()
                     .presentationDetents([.medium])
             }
+            .onAppear {
+                setAnonymousAccountStatus()
+            }
         }
+    }
+    
+    func setAnonymousAccountStatus() {
+        isAnonymousUser = authService.getAuthenticatedUser()?.isAnonymous == true
     }
     
     func onSingOutPressed() {
