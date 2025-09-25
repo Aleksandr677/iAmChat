@@ -15,6 +15,7 @@ struct SettingsView: View {
     @State private var isPremium: Bool = true
     @State private var isAnonymousUser: Bool = true
     @State private var showCreateAccountView: Bool = false
+    @State private var showAlert: AnyAppAlert?
     
     var body: some View {
         NavigationStack {
@@ -24,13 +25,18 @@ struct SettingsView: View {
                 applicationSection
             }
             .navigationTitle("Settings")
-            .sheet(isPresented: $showCreateAccountView) {
+            .sheet(isPresented: $showCreateAccountView,
+                   onDismiss: {
+                setAnonymousAccountStatus()
+            },
+                   content: {
                 CreateAccountView()
                     .presentationDetents([.medium])
-            }
+            })
             .onAppear {
                 setAnonymousAccountStatus()
             }
+            .showCustomAlert(alert: $showAlert)
         }
     }
     
@@ -39,15 +45,49 @@ struct SettingsView: View {
     }
     
     func onSingOutPressed() {
-        dismiss()
         Task {
-            try? await Task.sleep(for: .seconds(0.5))
-            appState.updateViewState(showTabBarView: false)
+            do {
+                try authService.signOut()
+                await dismissScreen()
+            } catch {
+                showAlert = AnyAppAlert(error: error)
+            }
         }
+    }
+    
+    private func dismissScreen() async {
+        dismiss()
+        try? await Task.sleep(for: .seconds(0.5))
+        appState.updateViewState(showTabBarView: false)
     }
     
     func onCreateAccountPressed() {
         showCreateAccountView = true
+    }
+    
+    func onDeleteAccountPressed() {
+        showAlert = AnyAppAlert(title: "Delete account?",
+                                subtitle: "This action is perminent and cannot be undone. You will lose all your data.",
+                                buttons: {
+            AnyView(
+                Button("Delete",
+                       role: .destructive,
+                       action: {
+                           onDeleteAccountConfirmed()
+                       })
+            )
+        })
+    }
+    
+    private func onDeleteAccountConfirmed() {
+        Task {
+            do {
+                try await authService.deleteAccount()
+                await dismissScreen()
+            } catch {
+                showAlert = AnyAppAlert(error: error)
+            }
+        }
     }
     
     private var accountSection: some View {
@@ -72,7 +112,7 @@ struct SettingsView: View {
                 .foregroundStyle(.red)
                 .rowFormatting()
                 .anyButton(option: .highlight) {
-                    onSingOutPressed()
+                    onDeleteAccountPressed()
                 }
                 .removeListRowFormatting()
         },
@@ -150,5 +190,6 @@ fileprivate extension View {
 
 #Preview {
     SettingsView()
+        .environment(\.authService, MockAuthService(user: .mock(isAnonymous: true)))
         .environment(AppState())
 }

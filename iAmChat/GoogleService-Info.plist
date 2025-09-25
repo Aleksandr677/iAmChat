@@ -2,18 +2,22 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CLIENT_ID</key>
+	<string>212514470226-mi9qcgjctp2ch52p3gjv76tp0je8jgui.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.212514470226-mi9qcgjctp2ch52p3gjv76tp0je8jgui</string>
 	<key>API_KEY</key>
-	<string>AIzaSyA_giIycYInYecZy0hIkWoyU5k2uIxGERw</string>
+	<string>AIzaSyBJoL7DP8sbB9YaGOnXwy9npZ8Gr1ZNufM</string>
 	<key>GCM_SENDER_ID</key>
-	<string>174307005584</string>
+	<string>212514470226</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>aleksandrkhristichenkoteam.iAmChat</string>
 	<key>PROJECT_ID</key>
-	<string>iamchat-403c5</string>
+	<string>iamchat-a4fb7</string>
 	<key>STORAGE_BUCKET</key>
-	<string>iamchat-403c5.firebasestorage.app</string>
+	<string>iamchat-a4fb7.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:174307005584:ios:055914fe2c8b07743eb415</string>
+	<string>1:212514470226:ios:25e0ecd563930645afa28b</string>
 </dict>
 </plist>
