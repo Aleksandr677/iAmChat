@@ -11,7 +11,7 @@ struct CreateAccountView: View {
     
     var title: String = "Create Account?"
     var subtitle: String = "Don't lose your data! Connect to an SSO provider to save your account!"
-    @Environment(\.authService) private var authService
+    @Environment(AuthManager.self) private var authManager
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -44,7 +44,7 @@ struct CreateAccountView: View {
     
     private func signInUser() async {
         do {
-            let result = try await authService.signInAnonymously()
+            let result = try await authManager.signInAnonymously()
             print("Sing in anonymously: \(result.user.uid)")
             dismiss.callAsFunction()
         } catch {

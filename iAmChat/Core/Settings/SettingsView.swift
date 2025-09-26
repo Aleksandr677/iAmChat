@@ -10,7 +10,7 @@ import SwiftUI
 struct SettingsView: View {
     
     @Environment(\.dismiss) private var dismiss
-    @Environment(\.authService) private var authService
+    @Environment(AuthManager.self) private var authManager
     @Environment(AppState.self) private var appState
     @State private var isPremium: Bool = true
     @State private var isAnonymousUser: Bool = true
@@ -41,13 +41,13 @@ struct SettingsView: View {
     }
     
     func setAnonymousAccountStatus() {
-        isAnonymousUser = authService.getAuthenticatedUser()?.isAnonymous == true
+        isAnonymousUser = authManager.auth?.isAnonymous == true
     }
     
     func onSingOutPressed() {
         Task {
             do {
-                try authService.signOut()
+                try authManager.signOut()
                 await dismissScreen()
             } catch {
                 showAlert = AnyAppAlert(error: error)
@@ -82,7 +82,7 @@ struct SettingsView: View {
     private func onDeleteAccountConfirmed() {
         Task {
             do {
-                try await authService.deleteAccount()
+                try await authManager.deleteAccount()
                 await dismissScreen()
             } catch {
                 showAlert = AnyAppAlert(error: error)
@@ -190,6 +190,6 @@ fileprivate extension View {
 
 #Preview {
     SettingsView()
-        .environment(\.authService, MockAuthService(user: .mock(isAnonymous: true)))
+        .environment(AuthManager(service: MockAuthService(user: .mock())))
         .environment(AppState())
 }
