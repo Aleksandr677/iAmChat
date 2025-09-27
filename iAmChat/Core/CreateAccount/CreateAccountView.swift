@@ -12,6 +12,7 @@ struct CreateAccountView: View {
     var title: String = "Create Account?"
     var subtitle: String = "Don't lose your data! Connect to an SSO provider to save your account!"
     @Environment(AuthManager.self) private var authManager
+    @Environment(UserManager.self) private var userManager
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -46,6 +47,8 @@ struct CreateAccountView: View {
         do {
             let result = try await authManager.signInAnonymously()
             print("Sing in anonymously: \(result.user.uid)")
+            try await userManager.logIn(auth: result.user, isNewUser: result.isNewUser)
+            print("Did log in!")
             dismiss.callAsFunction()
         } catch {
             print("DEBUG-1", error)

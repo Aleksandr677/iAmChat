@@ -10,6 +10,7 @@
 		221C53112E82E5FF00180425 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 221C53102E82E5FF00180425 /* FirebaseAuth */; };
 		22216BBC2E6836EA00D0342B /* SDWebImageSwiftUI in Frameworks */ = {isa = PBXBuildFile; productRef = 22216BBB2E6836EA00D0342B /* SDWebImageSwiftUI */; };
 		22216BF32E6F14F100D0342B /* SwiftfulUtilities in Frameworks */ = {isa = PBXBuildFile; productRef = 22216BF22E6F14F100D0342B /* SwiftfulUtilities */; };
+		22D02E822E87F074003DC969 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 22D02E812E87F074003DC969 /* FirebaseFirestore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				22216BBC2E6836EA00D0342B /* SDWebImageSwiftUI in Frameworks */,
+				22D02E822E87F074003DC969 /* FirebaseFirestore in Frameworks */,
 				221C53112E82E5FF00180425 /* FirebaseAuth in Frameworks */,
 				22216BF32E6F14F100D0342B /* SwiftfulUtilities in Frameworks */,
 			);
@@ -87,6 +89,7 @@
 				22216B6C2E67316200D0342B /* iAmChat */,
 				22216B7B2E67316500D0342B /* iAmChatTests */,
 				22216B852E67316500D0342B /* iAmChatUITests */,
+				22D02E802E87F074003DC969 /* Frameworks */,
 				22216B6B2E67316200D0342B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -99,6 +102,13 @@
 				22216B822E67316500D0342B /* iAmChatUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		22D02E802E87F074003DC969 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +135,7 @@
 				22216BBB2E6836EA00D0342B /* SDWebImageSwiftUI */,
 				22216BF22E6F14F100D0342B /* SwiftfulUtilities */,
 				221C53102E82E5FF00180425 /* FirebaseAuth */,
+				22D02E812E87F074003DC969 /* FirebaseFirestore */,
 			);
 			productName = iAmChat;
 			productReference = 22216B6A2E67316200D0342B /* iAmChat.app */;
@@ -685,6 +696,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 22216BF12E6F14F100D0342B /* XCRemoteSwiftPackageReference "SwiftfulUtilities" */;
 			productName = SwiftfulUtilities;
+		};
+		22D02E812E87F074003DC969 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 221C530F2E82E5FF00180425 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
