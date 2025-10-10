@@ -15,28 +15,22 @@ struct IAmChatApp: App {
     
     var body: some Scene {
         WindowGroup {
-            EnviromentBuilderView {
-                AppView()
-            }
+            AppView()
+                .environment(delegate.authManager)
+                .environment(delegate.userManager)
         }
     }
 }
 
-struct EnviromentBuilderView<Content: View>: View {
-    
-    @ViewBuilder var content: () -> Content
-    
-    var body: some View {
-        content()
-            .environment(AuthManager(service: FirebaseAuthService()))
-            .environment(UserManager(service: FirebaseUserService()))
-    }
-}
-
 class AppDelegate: NSObject, UIApplicationDelegate {
-  func application(_ application: UIApplication,
-                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
-    FirebaseApp.configure()
-    return true
-  }
+    var authManager: AuthManager!
+    var userManager: UserManager!
+    
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+        FirebaseApp.configure()
+        authManager = AuthManager(service: FirebaseAuthService())
+        userManager = UserManager(services: ProductionUserServices())
+        return true
+    }
 }

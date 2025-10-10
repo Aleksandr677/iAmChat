@@ -195,5 +195,5 @@ fileprivate extension View {
     SettingsView()
         .environment(AuthManager(service: MockAuthService(user: .mock())))
         .environment(AppState())
-        .environment(UserManager(service: MockUserService(user: .mock)))
+        .environment(UserManager(services: MockUserServices(user: nil)))
 }
